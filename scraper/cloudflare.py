@@ -51,7 +51,7 @@ class BypassCloudflare(object):
         # another way to set profile is the below (which takes precedence if both variants are used
         options.add_argument('--user-data-dir={}'.format(self.user_data_dir))
 
-        options.headless = True
+        options.headless = False
 
         # just some options passing in to skip annoying popups
         options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
