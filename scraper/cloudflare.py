@@ -3,6 +3,9 @@ from selenium.webdriver.common.proxy import Proxy, ProxyType
 from pathlib import Path
 import time
 
+from xvfbwrapper import Xvfb
+
+
 class BypassCloudflare(object):
     """
     Read site web 'under attack mode'
@@ -21,6 +24,9 @@ class BypassCloudflare(object):
         self.url = url 
         self.proxy = proxy 
         self.user_data_dir = self.check_user_data_dir()
+
+        vdisplay = Xvfb(width=800, height=1280)
+        vdisplay.start()
     
     def check_user_data_dir(self) -> str:
         """

@@ -26,3 +26,4 @@ urllib3==1.26.6
 websockets==9.1
 Werkzeug==1.0.1
 wrapt==1.12.1
+xvfbwrapper==0.2.9
