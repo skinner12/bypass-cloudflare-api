@@ -25,8 +25,6 @@ class BypassCloudflare(object):
         self.proxy = proxy 
         self.user_data_dir = self.check_user_data_dir()
 
-        vdisplay = Xvfb(width=800, height=1280)
-        vdisplay.start()
     
     def check_user_data_dir(self) -> str:
         """
@@ -49,6 +47,9 @@ class BypassCloudflare(object):
 
         @return: string
         """
+
+        vdisplay = Xvfb(width=800, height=1280)
+        vdisplay.start()
 
         options = uc.ChromeOptions()
         # setting profile
@@ -84,4 +85,5 @@ class BypassCloudflare(object):
         #time.sleep(20)
         print(html)
         driver.close()
+        vdisplay.stop()
         return html
