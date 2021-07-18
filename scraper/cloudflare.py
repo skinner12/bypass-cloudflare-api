@@ -83,7 +83,7 @@ class BypassCloudflare(object):
             
         html = driver.page_source
         #time.sleep(20)
-        print(html)
+        #print(html)
         driver.close()
         vdisplay.stop()
         return html
