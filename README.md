@@ -8,7 +8,7 @@ Based on: [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undete
 
 ```bash
 sudo apt install -y xvfb
-sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
+sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo tee -a /usr/share/keyrings/linux_signing_key.pub
 sudo echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 sudo apt-get -y update
 sudo apt-get -y install google-chrome-stable
