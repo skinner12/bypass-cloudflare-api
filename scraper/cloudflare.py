@@ -58,8 +58,6 @@ class BypassCloudflare(object):
         # another way to set profile is the below (which takes precedence if both variants are used
         options.add_argument('--user-data-dir={}'.format(self.user_data_dir))
 
-        options.headless = False
-
         # just some options passing in to skip annoying popups
         options.add_argument('--no-first-run --no-service-autorun --password-store=basic --remote-debugging-port=9222')
         options.add_argument(f'--disable-gpu')
@@ -71,7 +69,10 @@ class BypassCloudflare(object):
         if self.proxy:
             options.add_argument('--proxy-server={proxy}'.format(proxy=self.proxy))
 
-        driver = uc.Chrome(options=options)
+        driver = uc.Chrome(
+            options=options,
+            headless=False
+        )
 
         # now all these events will be printed in my console
 
