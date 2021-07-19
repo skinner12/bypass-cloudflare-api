@@ -61,7 +61,7 @@ class BypassCloudflare(object):
         options.headless = False
 
         # just some options passing in to skip annoying popups
-        options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
+        options.add_argument('--no-first-run --no-service-autorun --password-store=basic --remote-debugging-port=9222')
 
         # Proxy 
         print("Use proxy: {proxy}".format(proxy=self.proxy))
