@@ -60,7 +60,7 @@ def html():
     options.add_argument("{}/cloudflare-bypass/scraper".format(Path.home()))
 
     # just some options passing in to skip annoying popups
-    options.add_argument('--no-first-run --no-service-autorun --password-store=basic --remote-debugging-port=9222')
+    options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
     options.add_argument(f'--disable-gpu')
     options.add_argument(f'--no-sandbox')
     options.add_argument(f'--disable-dev-shm-usage')
