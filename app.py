@@ -2,7 +2,12 @@ from flask import Flask, jsonify, request
 from logging.config import dictConfig
 from flask_restx import abort
 from scraper.cloudflare import BypassCloudflare
+from pathlib import Path
+
+import undetected_chromedriver.v2 as uc
+from selenium.webdriver.common.proxy import Proxy, ProxyType
 import re
+from xvfbwrapper import Xvfb
 
 
 dictConfig({
@@ -42,8 +47,51 @@ def html():
     if not re.search(regex, url):
         app.logger.error("Not real URL")
         abort(jsonify(message="Not a valid URL", error=400, status="error"), 400)
-    cl = BypassCloudflare(url, proxy=proxy)
-    html = cl.read_webpage()
+
+    #cl = BypassCloudflare(url, proxy=proxy)
+    #html = cl.read_webpage()
+
+    vdisplay = Xvfb(width=800, height=1280)
+    vdisplay.start()
+
+    options = uc.ChromeOptions()
+    # setting profile
+
+    options.add_argument("{}/cloudflare-bypass/scraper".format(Path.home()))
+
+    # just some options passing in to skip annoying popups
+    options.add_argument('--no-first-run --no-service-autorun --password-store=basic --remote-debugging-port=9222')
+    options.add_argument(f'--disable-gpu')
+    options.add_argument(f'--no-sandbox')
+    options.add_argument(f'--disable-dev-shm-usage')
+
+    # Proxy 
+    print("Use proxy: {proxy}".format(proxy=proxy))
+    if proxy:
+        options.add_argument('--proxy-server={proxy}'.format(proxy=proxy))
+
+    driver = uc.Chrome(
+        options=options,
+        headless=False
+    )
+
+    # now all these events will be printed in my console
+
+    with driver:
+        driver.get_cookies()
+        try:
+            driver.get(url) # known url using cloudflare's "under attack mode"
+        except Exception as e:
+            print('Error | ', e)
+            return
+        print('Loaded...')
+        
+    html = driver.page_source
+    #time.sleep(20)
+    #print(html)
+    driver.close()
+    vdisplay.stop()
+    
     return jsonify({
         'url': url,
         'html': html
