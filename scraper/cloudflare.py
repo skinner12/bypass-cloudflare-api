@@ -48,8 +48,8 @@ class BypassCloudflare(object):
         @return: string
         """
 
-        vdisplay = Xvfb(width=800, height=1280)
-        vdisplay.start()
+        #vdisplay = Xvfb(width=800, height=1280)
+        #vdisplay.start()
 
         options = uc.ChromeOptions()
         # setting profile
@@ -89,5 +89,5 @@ class BypassCloudflare(object):
         #time.sleep(20)
         #print(html)
         driver.close()
-        vdisplay.stop()
+        #vdisplay.stop()
         return html
