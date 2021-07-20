@@ -79,11 +79,7 @@ def html():
 
     with driver:
         driver.get_cookies()
-        try:
-            driver.get(url) # known url using cloudflare's "under attack mode"
-        except Exception as e:
-            print('Error | ', e)
-            return
+        driver.get(url) # known url using cloudflare's "under attack mode"
         print('Loaded...')
         
     html = driver.page_source
