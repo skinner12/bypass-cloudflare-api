@@ -16,6 +16,7 @@ driver = uc.Chrome(
     headless=False)
 with driver:
     driver.get('https://nowsecure.nl')
-    print(driver.page_source)
+
+print(driver.page_source)
 
 vdisplay.stop()
