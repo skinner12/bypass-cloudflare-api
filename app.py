@@ -48,44 +48,33 @@ def html():
         app.logger.error("Not real URL")
         abort(jsonify(message="Not a valid URL", error=400, status="error"), 400)
 
-    #cl = BypassCloudflare(url, proxy=proxy)
-    #html = cl.read_webpage()
 
+    from xvfbwrapper import Xvfb
     vdisplay = Xvfb(width=800, height=1280)
     vdisplay.start()
 
+    import undetected_chromedriver.v2 as uc
+
     options = uc.ChromeOptions()
-    # setting profile
-
-    options.add_argument("{}/cloudflare-bypass/scraper".format(Path.home()))
-
-    # just some options passing in to skip annoying popups
-    options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
+    options.add_argument(f'--no-first-run --no-service-autorun --password-store=basic')
+    options.user_data_dir = '{}/cloudflare-bypass/scraper'.format(Path.home())
     options.add_argument(f'--disable-gpu')
     options.add_argument(f'--no-sandbox')
     options.add_argument(f'--disable-dev-shm-usage')
 
-    # Proxy 
+     # Proxy 
     print("Use proxy: {proxy}".format(proxy=proxy))
     if proxy:
         options.add_argument('--proxy-server={proxy}'.format(proxy=proxy))
 
     driver = uc.Chrome(
         options=options,
-        headless=False
-    )
-
-    # now all these events will be printed in my console
-
+        headless=False)
     with driver:
-        driver.get_cookies()
-        driver.get(url) # known url using cloudflare's "under attack mode"
-        print('Loaded...')
-        
+        driver.get(url)
+
     html = driver.page_source
-    #time.sleep(20)
-    #print(html)
-    driver.close()
+
     vdisplay.stop()
     
     return jsonify({
