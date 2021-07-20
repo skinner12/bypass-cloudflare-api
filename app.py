@@ -34,7 +34,8 @@ import undetected_chromedriver.v2 as uc
 
 options = uc.ChromeOptions()
 options.add_argument(f'--no-first-run --no-service-autorun --password-store=basic')
-options.user_data_dir = '{}/cloudflare-bypass/scraper'.format(Path.home())
+#options.user_data_dir = '{}/cloudflare-bypass/scraper'.format(Path.home())
+options.user_data_dir = f'./tmp/test_undetected_chromedriver'
 options.add_argument(f'--disable-gpu')
 options.add_argument(f'--no-sandbox')
 options.add_argument(f'--disable-dev-shm-usage')
