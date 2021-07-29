@@ -46,6 +46,7 @@ options.add_argument(f'--disable-dev-shm-usage')
 #     options.add_argument('--proxy-server={proxy}'.format(proxy=proxy))
 
 driver = uc.Chrome(
+version_main=92,
 options=options,
 headless=False)
 
