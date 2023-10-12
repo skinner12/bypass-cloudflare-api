@@ -4,7 +4,7 @@ from flask_restx import abort
 from scraper.cloudflare import BypassCloudflare
 from pathlib import Path
 
-import undetected_chromedriver.v2 as uc
+import undetected_chromedriver as uc
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 import re
 from xvfbwrapper import Xvfb
@@ -30,7 +30,7 @@ from xvfbwrapper import Xvfb
 vdisplay = Xvfb(width=800, height=1280)
 vdisplay.start()
 
-import undetected_chromedriver.v2 as uc
+import undetected_chromedriver as uc
 
 options = uc.ChromeOptions()
 options.add_argument(f'--no-first-run --no-service-autorun --password-store=basic')
@@ -39,7 +39,7 @@ options.user_data_dir = f'./tmp/test_undetected_chromedriver'
 options.add_argument(f'--disable-gpu')
 options.add_argument(f'--no-sandbox')
 options.add_argument(f'--disable-dev-shm-usage')
-
+options.headless = False
 # Proxy 
 # print("Use proxy: {proxy}".format(proxy=proxy))
 # if proxy:
@@ -47,8 +47,7 @@ options.add_argument(f'--disable-dev-shm-usage')
 
 driver = uc.Chrome(
 version_main=92,
-options=options,
-headless=False)
+options=options)
 
 app = Flask(__name__)
 

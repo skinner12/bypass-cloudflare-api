@@ -1,4 +1,4 @@
-import undetected_chromedriver.v2 as uc
+import undetected_chromedriver as uc
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 from pathlib import Path
 import time
@@ -70,8 +70,8 @@ class BypassCloudflare(object):
             options.add_argument('--proxy-server={proxy}'.format(proxy=self.proxy))
 
         driver = uc.Chrome(
-            options=options,
-            headless=False
+            # options=options,
+            
         )
 
         # now all these events will be printed in my console

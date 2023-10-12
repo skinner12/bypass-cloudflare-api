@@ -13,7 +13,7 @@ options.add_argument(f'--disable-dev-shm-usage')
 
 driver = uc.Chrome(
     options=options,
-    headless=False)
+    )
 with driver:
     driver.get('https://nowsecure.nl')
 
